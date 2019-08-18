@@ -1,20 +1,19 @@
 import * as Actions from '../../actions';
+import {sortByTerms} from '../../../utils';
 
 const defaultState = {
   title: '',
   cards: [],
-  sortedCards: {
-    price: [],
-    promote: []
-  },
+  sortedCards: [],
   description: '',
-  sortedBy: '', // enum('price', 'promote')
+  sortBy: [],
   loading: false,
   error: false
 };
 
-export default function(state = defaultState, action) {
-  switch(action.type) {
+export default function (state = defaultState, action) {
+  let sortTerms;
+  switch (action.type) {
     case Actions.GET_PRODUCTS:
       return {
         ...state,
@@ -36,32 +35,23 @@ export default function(state = defaultState, action) {
         loading: false,
         error: action.payload
       };
-    case Actions.SORT_BY_PRICE_ASC:
+    case Actions.ADD_SORT_TERM:
+      sortTerms = state.sortBy.includes(action.payload)
+        ? state.sortBy
+        : [...state.sortBy, action.payload];
       return {
         ...state,
-        sortedBy: 'price',
-        sortedCards: {
-          ...state.sortedCards,
-          price: state.sortedCards.price.length
-            ? state.sortedCards.price
-            : state.cards.slice().sort((a, b) => a.product.price - b.product.price)
-        }
+        sortBy: sortTerms,
+        sortedCards: action.payload in state.sortBy
+          ? state.sortedCards
+          : sortByTerms(sortTerms, state.cards, 'product', 'ASC')
       };
-    case Actions.SORT_BY_PROMOTES_ASC:
+    case Actions.REMOVE_SORT_TERM:
+      sortTerms = state.sortBy.filter(term => term !== action.payload);
       return {
         ...state,
-        sortedBy: 'promote',
-        sortedCards: {
-          ...state.sortedCards,
-          promote: state.sortedCards.promote.length
-            ? state.sortedCards.promote
-            : state.cards.slice().sort((a, b) => a.product['promote_cnt'] - b.product['promote_cnt'])
-        }
-      };
-    case Actions.RESET_SORT:
-      return {
-        ...state,
-        sortedBy: ''
+        sortBy: sortTerms,
+        sortedCards: sortByTerms(sortTerms, state.cards, 'product', 'ASC')
       };
     default:
       return state;

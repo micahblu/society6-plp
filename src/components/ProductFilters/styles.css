@@ -1,8 +1,8 @@
-.filter-row {
+.product-filters {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin: 1em;
+  margin: 2em;
 }
 
 .filter-item {

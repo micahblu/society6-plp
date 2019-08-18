@@ -1,28 +1,30 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {sortByPrice, sortByPromotes, resetSort} from '../../store/actions';
+import {addSortTerm, removeSortTerm} from '../../store/actions';
 import Button from '../Button';
 import './styles.css';
 
-const ProductFilters = ({sortedBy, sortByPrice, sortByPromotes, resetSort}) => {
+const ProductFilters = ({sortBy, addSortTerm, removeSortTerm}) => {
+  let isSortingByPrice = sortBy.includes('price');
+  let isSortingByPromote = sortBy.includes('promote_cnt');
   const onSortPrice = () => {
-    if (sortedBy === 'price') resetSort();
-    else sortByPrice();
+    if (isSortingByPrice) removeSortTerm('price');
+    else addSortTerm('price');
   }
   const onSortPromote = () => {
-    if (sortedBy === 'promote') resetSort();
-    else sortByPromotes();
+    if (isSortingByPromote) removeSortTerm('promote_cnt');
+    else addSortTerm('promote_cnt');
   }
   return (
-    <div className="filter-row">
+    <div className="product-filters">
       <div className="filter-item">
-        <Button onClick={onSortPrice} active={sortedBy === 'price'}>
+        <Button onClick={onSortPrice} active={isSortingByPrice}>
           Sort by Price
         </Button>
       </div>
       <div className="filter-item">
-        <Button onClick={onSortPromote} active={sortedBy === 'promote'}>
+        <Button onClick={onSortPromote} active={isSortingByPromote}>
           Sort by Popularity
         </Button>
       </div>
@@ -32,15 +34,14 @@ const ProductFilters = ({sortedBy, sortByPrice, sortByPromotes, resetSort}) => {
 
 function mapStateToProps({products}) {
   return {
-    sortedBy: products.sortedBy
+    sortBy: products.sortBy
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    sortByPrice,
-    sortByPromotes,
-    resetSort
+    addSortTerm,
+    removeSortTerm
   }, dispatch)
 }
 

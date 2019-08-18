@@ -27,16 +27,10 @@ const ProductList = ({getProducts, products, loading}) => {
   );
 }
 function mapStateToProps({products}) {
-  let filteredProducts;
-  if (products.sortedBy === 'price') {
-    filteredProducts = products.sortedCards.price;
-  } else if (products.sortedBy === 'promote') {
-    filteredProducts = products.sortedCards.promote;
-  } else {
-    filteredProducts = products.cards;
-  }
   return {
-    products: filteredProducts,
+    products: products.sortBy.length > 0 
+      ? products.sortedCards
+      : products.cards,
     loading: products.loading
   };
 }
