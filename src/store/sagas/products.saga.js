@@ -3,13 +3,14 @@ import * as Actions from '../actions';
 
 function* getProductsSaga(action) {
   try {
-    const response = yield call(fetch, '../../mocks/products.json');
-    put({
+    const response = yield call(fetch, '/products');
+    const json = yield response.json();
+    yield put({
       type: Actions.GET_PRODUCTS_SUCCESS,
-      payload: response.data.attributes
+      payload: json.data.attributes
     });
   } catch(error) {
-    put({
+    yield put({
       type: Actions.GET_PRODUCTS_ERROR,
       payload: error
     });

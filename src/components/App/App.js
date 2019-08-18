@@ -1,19 +1,15 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import {Provider} from 'react-redux';
 import store from '../../store';
 import Header from '../Header';
+import ProductList from '../ProductList';
 import './styles.css';
 
-class App extends PureComponent {
-  render() {
-    return (
-      <Provider store={store}>
-        <div className="app">
-          <Header />
-        </div>
-      </Provider>
-    );
-  }
-}
-
-export default App;
+export default () => (
+  <Provider store={store}>
+    <div className="app">
+      <Header />
+      <ProductList />
+    </div>
+  </Provider>
+);

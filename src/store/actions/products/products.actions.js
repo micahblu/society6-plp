@@ -5,9 +5,8 @@ export const GET_PRODUCTS_ERROR = Symbol('GET_PRODUCTS_ERROR');
 export const SORT_BY_PRICE_ASC = Symbol('SORT_BY_PRICE_ASC');
 export const SORT_BY_PROMOTES_ASC = Symbol('SORT_BY_PROMOTES_ASC');
 
-export const getProducts = payload => ({
-  type: GET_PRODUCTS,
-  payload
+export const getProducts = () => ({
+  type: GET_PRODUCTS
 });
 
 export const sortByPrice = () => ({

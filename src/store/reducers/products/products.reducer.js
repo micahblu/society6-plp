@@ -4,8 +4,7 @@ const defaultState = {
   title: '',
   cards: [],
   sortedCards: {
-    price: [],
-    promote: []
+     promote: []
   },
   description: '',
   sortedBy: '', // enum('price', 'promote')
@@ -22,6 +21,7 @@ export default function(state = defaultState, action) {
         error: false
       };
     case Actions.GET_PRODUCTS_SUCCESS:
+      console.log('get products success triggered');
       return {
         ...state,
         loading: false,
