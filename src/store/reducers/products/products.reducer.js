@@ -4,7 +4,8 @@ const defaultState = {
   title: '',
   cards: [],
   sortedCards: {
-     promote: []
+    price: [],
+    promote: []
   },
   description: '',
   sortedBy: '', // enum('price', 'promote')
@@ -43,7 +44,7 @@ export default function(state = defaultState, action) {
           ...state.sortedCards,
           price: state.sortedCards.price.length
             ? state.sortedCards.price
-            : state.cards.sort((a, b) => a.product.price - b.product.price)
+            : state.cards.slice().sort((a, b) => a.product.price - b.product.price)
         }
       };
     case Actions.SORT_BY_PROMOTES_ASC:
@@ -54,8 +55,13 @@ export default function(state = defaultState, action) {
           ...state.sortedCards,
           promote: state.sortedCards.promote.length
             ? state.sortedCards.promote
-            : state.cards.sort((a, b) => a.product['promote_cnt'] - b.product['promote_cnt'])
+            : state.cards.slice().sort((a, b) => a.product['promote_cnt'] - b.product['promote_cnt'])
         }
+      };
+    case Actions.RESET_SORT:
+      return {
+        ...state,
+        sortedBy: ''
       };
     default:
       return state;

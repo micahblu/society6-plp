@@ -1,0 +1,39 @@
+.card {
+  margin-bottom: 2rem;
+}
+
+.card .row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-details {
+  max-width: 265px;
+  margin: 0px auto;
+  text-align: left;
+}
+
+.card-title {
+  font-size: 14px;
+  color: #323232;
+}
+
+.card-promote {
+  color: #6e6e6e;
+  font-size: 13px;
+}
+
+.product-artist {
+  font-size: 12px;
+}
+
+.product-price {
+  font-size: 14px;
+  margin: 1rem 0;
+  color: #ff795c;
+}
+
+.slashed-price {
+  color: black;
+  text-decoration: line-through;
+}

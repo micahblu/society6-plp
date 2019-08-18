@@ -27,9 +27,16 @@ const ProductList = ({getProducts, products, loading}) => {
   );
 }
 function mapStateToProps({products}) {
-  console.log('products', products);
+  let filteredProducts;
+  if (products.sortedBy === 'price') {
+    filteredProducts = products.sortedCards.price;
+  } else if (products.sortedBy === 'promote') {
+    filteredProducts = products.sortedCards.promote;
+  } else {
+    filteredProducts = products.cards;
+  }
   return {
-    products: products.cards,
+    products: filteredProducts,
     loading: products.loading
   };
 }

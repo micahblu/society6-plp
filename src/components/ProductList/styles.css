@@ -6,5 +6,13 @@
 
 .product-list .card {
   flex-grow: 1;
-  width: 33%;
+  width: 50%;
+}
+
+
+@media (min-width: 760px) {
+  .product-list .card {
+    flex-grow: 1;
+    width: 33%;
+  }
 }
